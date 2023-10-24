@@ -78,7 +78,7 @@ piles.length <= H <= 10^9
 
 Клас, який описує бінарне дерево (та будь який вузол дерева) має вигляд:
 
-# This is the class of the input binary tree.
+This is the class of the input binary tree.
 class BinaryTree:
     def __init__(self, value: int):
         self.value = value
