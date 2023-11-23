@@ -29,13 +29,11 @@ class UnionFind:
                 return root2, root1
 
     def wedd(self, pairs):
-        duplicate_pairs = []
         boys = set()
         girls = set()
 
         for pair in pairs:
             human1, human2 = pair
-            duplicate_pairs.append((human1, human2))
             if human1 % 2:
                 boys.add(human1)
             else:
@@ -52,30 +50,27 @@ class UnionFind:
                 curr_pair = (girl, boy)
                 root_girl = self.find(girl)
                 root_boy = self.find(boy)
-                if curr_pair not in duplicate_pairs and root_girl != root_boy:
+                if root_girl != root_boy:
                     new_pairs.append(curr_pair)
                     counter += 1
 
-        print(counter)
-        print(new_pairs)
+        
         return counter, new_pairs
 
+
 if __name__ == '__main__':
-    unionFind = UnionFind([1, 2, 3, 4, 5, 8, 10])
-    pairs = []
+    with open("input.txt", "r") as f:
+        lines = f.readlines()
 
-    pair1 = unionFind.union(1, 2)
-    pair2 = unionFind.union(2, 4)
-    pair3 = unionFind.union(1, 3)
-    pair4 = unionFind.union(3, 5)
-    pair5 = unionFind.union(8, 10)
+    vertex = eval(lines[0].strip())
+    pairs = eval(lines[1].strip())
 
-    pairs.append(pair1)
-    pairs.append(pair2)
-    pairs.append(pair3)
-    pairs.append(pair4)
-    pairs.append(pair5)
+    unionFind = UnionFind(vertex)
 
-    unionFind.wedd(pairs)
+    result_pairs = []
+    for pair in pairs:
+        human1, human2 = pair
+        result_pairs.append(unionFind.union(human1, human2))
 
-
+    with open("output.txt", "w") as f:
+        f.write(str(unionFind.wedd(result_pairs)))
